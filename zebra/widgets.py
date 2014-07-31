@@ -5,13 +5,22 @@ from django.utils.safestring import mark_safe
 class NoNameWidget(object):
 
     def _update_to_noname_class_name(self, name, kwargs_dict):
+        name_class = name.replace("_", "-")
+
+        current_classes = ''
+        if "class" in self.attrs:
+            current_classes = self.attrs["class"]
+
         if "attrs" in kwargs_dict:
             if "class" in kwargs_dict["attrs"]:
-                kwargs_dict["attrs"]["class"] += " %s" % (name.replace("_", "-"), )
+                kwargs_dict["attrs"]["class"] += (" %s" % name.replace("_", "-"))
             else:
                 kwargs_dict["attrs"].update({'class': name.replace("_", "-")})
         else:
             kwargs_dict["attrs"] = {'class': name.replace("_", "-")}
+
+        if current_classes != '':
+            kwargs_dict["attrs"]["class"] += ' %s' % current_classes
 
         return kwargs_dict
 
