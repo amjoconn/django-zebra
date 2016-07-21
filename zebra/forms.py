@@ -24,7 +24,7 @@ class StripePaymentForm(CardForm):
         super(StripePaymentForm, self).__init__(*args, **kwargs)
         self.fields['card_cvv'].label = "Card CVC"
         self.fields['card_cvv'].help_text = "Card Verification Code; see rear of card."
-        months = [ (m[0], u'%02d - %s' % (m[0], unicode(m[1])))
+        months = [ (m[0], u'%02d - %s' % (m[0], str(m[1])))
                     for m in sorted(iteritems(MONTHS)) ]
         self.fields['card_expiry_month'].choices = months
 
